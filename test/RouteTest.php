@@ -36,9 +36,27 @@ class RouteTest extends TestCase
     }
 
     /**
-     * Test Start Map
+     * Test No Namespace Root
      */
-    public function testStartMap()
+    public function testNoNamespaceRoot()
+    {
+        $_SERVER['REQUEST_URI'] = '/test/map';
+        $route = new Route();
+        $route->setNamespaceRoot('');
+        $route->setConfig(array(
+            'type' => 'map',
+            'any' => array(
+                'test/map' => 'ControllerNoNamespaceRoot.TestNoNamespaceRoot.map'
+            )
+        ));
+        $route->start();
+        $this->expectOutputString('map');
+    }
+
+    /**
+     * Test Map
+     */
+    public function testMap()
     {
         $_SERVER['REQUEST_URI'] = '/test/map';
         $route = new Route();
@@ -54,9 +72,9 @@ class RouteTest extends TestCase
     }
 
     /**
-     * Test Start Map Empty
+     * Test Map Empty
      */
-    public function testStartMapEmpty()
+    public function testMapEmpty()
     {
         $_SERVER['REQUEST_URI'] = '/test/mapEmpty';
         $route = new Route();
@@ -72,9 +90,9 @@ class RouteTest extends TestCase
     }
 
     /**
-     * Test Start PathInfo
+     * Test PathInfo
      */
-    public function testStartPathInfo()
+    public function testPathInfo()
     {
         $name = 'pathinfo';
         $_SERVER['REQUEST_URI'] = sprintf('/test/pathinfo/name/%s', $name);
@@ -88,9 +106,9 @@ class RouteTest extends TestCase
     }
 
     /**
-     * Test Start Symfony
+     * Test Symfony
      */
-    public function testStartSymfony()
+    public function testSymfony()
     {
         $name = 'symfony';
         $_SERVER['REQUEST_URI'] = sprintf('/test/symfony/%s', $name);
@@ -107,9 +125,9 @@ class RouteTest extends TestCase
     }
 
     /**
-     * Test Start Symfony Namespace
+     * Test Symfony Namespace
      */
-    public function testStartSymfonyNamespace()
+    public function testSymfonyNamespace()
     {
         $_SERVER['REQUEST_URI'] = '/test/home';
         $route = new Route();

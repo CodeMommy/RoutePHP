@@ -3,7 +3,7 @@
     "type": "library",
     "license": "Apache-2.0",
     "homepage": "http://www.codemommy.com",
-    "description": "Route PHP",
+    "description": "Route for MVC framework",
     "keywords": [
         "CodeMommy",
         "RoutePHP",
@@ -33,7 +33,8 @@
     "autoload-dev": {
         "psr-4": {
             "CodeMommy\\RoutePHP\\Script\\": "script/",
-            "Controller\\": "test/case/controller/"
+            "Controller\\": "test/case/controller/",
+            "ControllerNoNamespaceRoot\\": "test/case/"
         }
     },
     "require": {

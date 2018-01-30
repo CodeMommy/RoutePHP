@@ -7,7 +7,7 @@
 [![composer.lock Available](https://poser.pugx.org/CodeMommy/RoutePHP/composerlock)](https://packagist.org/packages/CodeMommy/RoutePHP)
 [![Build Status](https://travis-ci.org/CodeMommy/RoutePHP.svg?branch=master)](https://travis-ci.org/CodeMommy/RoutePHP)
 
-> Route PHP
+> Route for MVC framework
 
 ## Contributor
 
