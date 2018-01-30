@@ -1,0 +1,62 @@
+{
+    "name": "codemommy/routephp",
+    "type": "library",
+    "license": "Apache-2.0",
+    "homepage": "http://www.codemommy.com",
+    "description": "Route PHP",
+    "keywords": [
+        "CodeMommy",
+        "RoutePHP",
+        "Route",
+        "PHP"
+    ],
+    "support": {
+        "issues": "https://github.com/CodeMommy/RoutePHP/issues",
+        "source": "https://github.com/CodeMommy/RoutePHP"
+    },
+    "authors": [
+        {
+            "name": "Candison November",
+            "role": "Founder",
+            "email": "kandisheng@163.com",
+            "homepage": "http://www.kandisheng.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CodeMommy\\RoutePHP\\": [
+                "source/",
+                "interface/"
+            ]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CodeMommy\\RoutePHP\\Script\\": "script/",
+            "Controller\\": "test/case/controller/"
+        }
+    },
+    "require": {
+        "php": ">=5.5.9",
+        "symfony/http-foundation": "3.4.*",
+        "symfony/routing": "3.4.*"
+    },
+    "require-dev": {
+        "CodeMommy/TaskPHP": "*",
+        "phpunit/phpunit": "*"
+    },
+    "scripts": {
+        "environment": [
+            "composer -V",
+            "php -v",
+            "php -m"
+        ],
+        "update-project": [
+            "git pull",
+            "composer self-update",
+            "composer update"
+        ],
+        "test": "CodeMommy\\RoutePHP\\Script\\Test::start",
+        "clean": "CodeMommy\\RoutePHP\\Script\\Clean::start"
+    }
+}

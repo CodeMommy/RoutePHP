@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./vendor/autoload.php" colors="true">
+    <testsuites>
+        <testsuite name="CodeMommy RoutePHP">
+            <directory suffix="Test.php">./test</directory>
+            <exclude>./test/case</exclude>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./source</directory>
+            <directory suffix=".php">./interface</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="./.report" charset="UTF-8"/>
+    </logging>
+</phpunit>
