@@ -146,7 +146,7 @@ class Route implements RouteInterface
      */
     private function typeNormal()
     {
-        $requestKey = 'a';
+        $requestKey = 'action';
         $defaultRoute = 'Index.index';
         $route = isset($_REQUEST[$requestKey]) ? $_REQUEST[$requestKey] : $defaultRoute;
         return $this->render($route);
