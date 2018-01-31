@@ -20,38 +20,56 @@ use Symfony\Component\HttpFoundation\Request;
 class Route implements RouteInterface
 {
     /**
-     * Config
-     * @var array
-     */
-    private $config = array();
-
-    /**
      * Namespace Root
      * @var string
      */
     private $namespaceRoot = '\\';
 
     /**
+     * Type
+     * @var string
+     */
+    private $type = '';
+
+    /**
+     * Rule
+     * @var array
+     */
+    private $rule = array();
+
+    /**
      * Route constructor.
      */
     public function __construct()
     {
-        $this->config = array();
         return true;
     }
 
     /**
-     * Get Route Config
-     * @return array
+     * Set Namespace Root
+     * @param string $namespaceRoot
+     * @return bool
      */
-    private function getConfig()
+    public function setNamespaceRoot($namespaceRoot = '\\')
     {
-        $config = $this->config;
-        $requestMethod = isset($_SERVER['REQUEST_METHOD']) ? strtolower($_SERVER['REQUEST_METHOD']) : '';
-        $routeConfigureAny = isset($config['any']) ? $config['any'] : array();
-        $routeConfigureCustom = isset($config[$requestMethod]) ? $config[$requestMethod] : array();
-        $routeConfig = array_merge($routeConfigureAny, $routeConfigureCustom);
-        return $routeConfig;
+        $namespaceRoot = trim($namespaceRoot, '/\\');
+        if (empty($namespaceRoot)) {
+            $namespaceRoot = '\\';
+        } else {
+            $namespaceRoot = sprintf('\\%s\\', $namespaceRoot);
+        }
+        $this->namespaceRoot = $namespaceRoot;
+        return true;
+    }
+
+    /**
+     * Set Type
+     * @param string $type
+     */
+    public function setType($type = '')
+    {
+        $type = empty($type) ? 'any' : $type;
+        $this->type = $type;
     }
 
     /**
@@ -60,8 +78,35 @@ class Route implements RouteInterface
      */
     private function getType()
     {
-        $config = $this->config;
-        return isset($config['type']) ? $config['type'] : '';
+        return $this->type;
+    }
+
+    /**
+     * Add Rule
+     * @param string $method
+     * @param string $rule
+     * @param string $action
+     */
+    public function addRule($method = '', $rule = '', $action = '')
+    {
+        $method = strtolower($method);
+        if (!isset($this->rule[$method])) {
+            $this->rule[$method] = array();
+        }
+        $this->rule[$method][$rule] = $action;
+    }
+
+    /**
+     * Get Route
+     * @return array
+     */
+    private function getRule()
+    {
+        $requestMethod = isset($_SERVER['REQUEST_METHOD']) ? strtolower($_SERVER['REQUEST_METHOD']) : '';
+        $routeRuleCustom = isset($this->rule[$requestMethod]) ? $this->rule[$requestMethod] : array();
+        $routeRuleAny = isset($this->rule['any']) ? $this->rule['any'] : array();
+        $routeRule = array_merge($routeRuleAny, $routeRuleCustom);
+        return $routeRule;
     }
 
     /**
@@ -133,7 +178,7 @@ class Route implements RouteInterface
         $request = Request::createFromGlobals();
         $pathInfo = $request->getPathInfo();
         $pathInfo = trim($pathInfo, '/');
-        $routeConfigure = $this->getConfig();
+        $routeConfigure = $this->getRule();
         foreach ($routeConfigure as $key => $value) {
             if ($pathInfo == trim($key, '/')) {
                 return $this->render($value);
@@ -148,7 +193,7 @@ class Route implements RouteInterface
      */
     private function typeSymfony()
     {
-        $routeConfigure = $this->getConfig();
+        $routeConfigure = $this->getRule();
         $routes = new RouteCollection();
         foreach ($routeConfigure as $key => $value) {
             $routes->add($key, new Routes($key));
@@ -167,34 +212,6 @@ class Route implements RouteInterface
         $route = $attributes['_route'];
         $route = $routeConfigure[$route];
         return self::render($route);
-    }
-
-    /**
-     * Set Config
-     * @param array $config
-     * @return bool
-     */
-    public function setConfig($config = array())
-    {
-        $this->config = $config;
-        return true;
-    }
-
-    /**
-     * Set Namespace Root
-     * @param string $namespaceRoot
-     * @return bool
-     */
-    public function setNamespaceRoot($namespaceRoot = '\\')
-    {
-        $namespaceRoot = trim($namespaceRoot, '/\\');
-        if (empty($namespaceRoot)) {
-            $namespaceRoot = '\\';
-        } else {
-            $namespaceRoot = sprintf('\\%s\\', $namespaceRoot);
-        }
-        $this->namespaceRoot = $namespaceRoot;
-        return true;
     }
 
     /**

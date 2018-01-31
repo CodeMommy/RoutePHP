@@ -11,6 +11,7 @@ namespace Test;
 
 use PHPUnit\Framework\TestCase;
 use CodeMommy\RoutePHP\Route;
+use CodeMommy\RoutePHP\RouteType;
 
 /**
  * Class RouteTest
@@ -36,21 +37,17 @@ class RouteTest extends TestCase
     }
 
     /**
-     * Test No Namespace Root
+     * Test PathInfo
      */
-    public function testNoNamespaceRoot()
+    public function testPathInfo()
     {
-        $_SERVER['REQUEST_URI'] = '/test/map';
+        $name = strval(rand(1, 100));
+        $_SERVER['REQUEST_URI'] = sprintf('/test/pathinfo/name/%s', $name);
         $route = new Route();
-        $route->setNamespaceRoot('');
-        $route->setConfig(array(
-            'type' => 'map',
-            'any' => array(
-                'test/map' => 'ControllerNoNamespaceRoot.TestNoNamespaceRoot.map'
-            )
-        ));
+        $route->setNamespaceRoot('\\Controller');
+        $route->setType(RouteType::PATHINFO);
         $route->start();
-        $this->expectOutputString('map');
+        $this->expectOutputString($name);
     }
 
     /**
@@ -61,12 +58,8 @@ class RouteTest extends TestCase
         $_SERVER['REQUEST_URI'] = '/test/map';
         $route = new Route();
         $route->setNamespaceRoot('\\Controller');
-        $route->setConfig(array(
-            'type' => 'map',
-            'any' => array(
-                'test/map' => 'Test.map'
-            )
-        ));
+        $route->setType(RouteType::MAP);
+        $route->addRule('any', 'test/map', 'Test.map');
         $route->start();
         $this->expectOutputString('map');
     }
@@ -79,30 +72,24 @@ class RouteTest extends TestCase
         $_SERVER['REQUEST_URI'] = '/test/mapEmpty';
         $route = new Route();
         $route->setNamespaceRoot('\\Controller');
-        $route->setConfig(array(
-            'type' => 'map',
-            'any' => array(
-                'test/map' => 'Test.map'
-            )
-        ));
+        $route->setType(RouteType::MAP);
+        $route->addRule('any', 'test/map', 'Test.map');
         $route->start();
         $this->expectOutputString('');
     }
 
     /**
-     * Test PathInfo
+     * Test No Namespace Root
      */
-    public function testPathInfo()
+    public function testNoNamespaceRoot()
     {
-        $name = 'pathinfo';
-        $_SERVER['REQUEST_URI'] = sprintf('/test/pathinfo/name/%s', $name);
+        $_SERVER['REQUEST_URI'] = '/test/map';
         $route = new Route();
-        $route->setNamespaceRoot('\\Controller');
-        $route->setConfig(array(
-            'type' => 'pathinfo'
-        ));
+        $route->setNamespaceRoot('');
+        $route->setType(RouteType::MAP);
+        $route->addRule('any', 'test/map', 'ControllerNoNamespaceRoot.TestNoNamespaceRoot.map');
         $route->start();
-        $this->expectOutputString($name);
+        $this->expectOutputString('map');
     }
 
     /**
@@ -110,16 +97,12 @@ class RouteTest extends TestCase
      */
     public function testSymfony()
     {
-        $name = 'symfony';
+        $name = strval(rand(1, 100));
         $_SERVER['REQUEST_URI'] = sprintf('/test/symfony/%s', $name);
         $route = new Route();
         $route->setNamespaceRoot('\\Controller');
-        $route->setConfig(array(
-            'type' => 'symfony',
-            'any' => array(
-                'test/symfony/{name}' => 'Test.symfony',
-            )
-        ));
+        $route->setType(RouteType::SYMFONY);
+        $route->addRule('any', 'test/symfony/{name}', 'Test.symfony');
         $route->start();
         $this->expectOutputString($name);
     }
@@ -132,12 +115,8 @@ class RouteTest extends TestCase
         $_SERVER['REQUEST_URI'] = '/test/home';
         $route = new Route();
         $route->setNamespaceRoot('\\Controller\\');
-        $route->setConfig(array(
-            'type' => 'symfony',
-            'any' => array(
-                'test/home' => 'Home.Home.index'
-            )
-        ));
+        $route->setType(RouteType::SYMFONY);
+        $route->addRule('any', 'test/home', 'Home.Home.index');
         $route->start();
         $this->expectOutputString('index');
     }

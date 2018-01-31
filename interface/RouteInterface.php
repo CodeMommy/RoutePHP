@@ -19,18 +19,25 @@ interface RouteInterface
     public function __construct();
 
     /**
-     * Set Config
-     * @param array $config
-     * @return bool
-     */
-    public function setConfig($config = array());
-    
-    /**
      * Set Namespace Root
      * @param string $namespaceRoot
      * @return bool
      */
     public function setNamespaceRoot($namespaceRoot = '\\');
+
+    /**
+     * Set Type
+     * @param string $type
+     */
+    public function setType($type = '');
+
+    /**
+     * Add Rule
+     * @param string $method
+     * @param string $rule
+     * @param string $action
+     */
+    public function addRule($method = '', $rule = '', $action = '');
 
     /**
      * Start
