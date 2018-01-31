@@ -29,7 +29,7 @@ class Route implements RouteInterface
      * Type
      * @var string
      */
-    private $type = '';
+    private $type = 'normal';
 
     /**
      * Rule
@@ -78,7 +78,8 @@ class Route implements RouteInterface
      */
     private function getType()
     {
-        return $this->type;
+        $type = empty($this->type) ? RouteType::NORMAL : $this->type;
+        return $type;
     }
 
     /**
@@ -138,6 +139,16 @@ class Route implements RouteInterface
     }
 
     /**
+     * Type Normal
+     * @return bool
+     */
+    private function typeNormal()
+    {
+        $route = isset($_REQUEST['a']) ? $_REQUEST['a'] : '';
+        return $this->render($route);
+    }
+
+    /**
      * Type Path Info
      * @return bool
      */
@@ -166,7 +177,7 @@ class Route implements RouteInterface
             }
         }
         $route = $controllerName . '.' . $actionName;
-        return self::render($route);
+        return $this->render($route);
     }
 
     /**
@@ -211,8 +222,9 @@ class Route implements RouteInterface
         }
         $route = $attributes['_route'];
         $route = $routeConfigure[$route];
-        return self::render($route);
+        return $this->render($route);
     }
+
 
     /**
      * Start
@@ -221,12 +233,17 @@ class Route implements RouteInterface
     public function start()
     {
         $routeType = $this->getType();
+        if ($routeType == RouteType::NORMAL) {
+            $this->typeNormal();
+        }
+        if ($routeType == RouteType::PATHINFO) {
+            $this->typePathInfo();
+        }
+        if ($routeType == RouteType::MAP) {
+            $this->typeMap();
+        }
         if ($routeType == RouteType::SYMFONY) {
             $this->typeSymfony();
-        } else if ($routeType == RouteType::MAP) {
-            $this->typeMap();
-        } else {
-            $this->typePathInfo();
         }
     }
 }

@@ -37,6 +37,19 @@ class RouteTest extends TestCase
     }
 
     /**
+     * Test Normal
+     */
+    public function testNormal()
+    {
+        $_REQUEST['a'] = 'Test.normal';
+        $route = new Route();
+        $route->setNamespaceRoot('\\Controller');
+        $route->setType(RouteType::NORMAL);
+        $route->start();
+        $this->expectOutputString('normal');
+    }
+
+    /**
      * Test PathInfo
      */
     public function testPathInfo()

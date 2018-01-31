@@ -21,6 +21,15 @@ class Test
     }
 
     /**
+     * Normal
+     * @return string
+     */
+    public function normal()
+    {
+        return 'normal';
+    }
+
+    /**
      * PathInfo
      * @return string
      */

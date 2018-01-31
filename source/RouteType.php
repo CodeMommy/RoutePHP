@@ -13,7 +13,8 @@ namespace CodeMommy\RoutePHP;
  */
 class RouteType implements RouteTypeInterface
 {
-    const SYMFONY = 'symfony';
-    const MAP = 'map';
+    const NORMAL = 'normal';
     const PATHINFO = 'pathinfo';
+    const MAP = 'map';
+    const SYMFONY = 'symfony';
 }
