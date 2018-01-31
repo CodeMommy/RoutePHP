@@ -12,6 +12,7 @@ namespace Test;
 use PHPUnit\Framework\TestCase;
 use CodeMommy\RoutePHP\Route;
 use CodeMommy\RoutePHP\RouteType;
+use CodeMommy\RoutePHP\RouteMethod;
 
 /**
  * Class RouteTest
@@ -72,7 +73,7 @@ class RouteTest extends TestCase
         $route = new Route();
         $route->setNamespaceRoot('\\Controller');
         $route->setType(RouteType::MAP);
-        $route->addRule('any', 'test/map', 'Test.map');
+        $route->addRule('test/map', 'Test.map', RouteMethod::ANY);
         $route->start();
         $this->expectOutputString('map');
     }
@@ -86,7 +87,7 @@ class RouteTest extends TestCase
         $route = new Route();
         $route->setNamespaceRoot('\\Controller');
         $route->setType(RouteType::MAP);
-        $route->addRule('any', 'test/map', 'Test.map');
+        $route->addRule('test/map', 'Test.map', RouteMethod::ANY);
         $route->start();
         $this->expectOutputString('');
     }
@@ -100,7 +101,7 @@ class RouteTest extends TestCase
         $route = new Route();
         $route->setNamespaceRoot('');
         $route->setType(RouteType::MAP);
-        $route->addRule('any', 'test/map', 'ControllerNoNamespaceRoot.TestNoNamespaceRoot.map');
+        $route->addRule('test/map', 'ControllerNoNamespaceRoot.TestNoNamespaceRoot.map', RouteMethod::ANY);
         $route->start();
         $this->expectOutputString('map');
     }
@@ -115,7 +116,7 @@ class RouteTest extends TestCase
         $route = new Route();
         $route->setNamespaceRoot('\\Controller');
         $route->setType(RouteType::SYMFONY);
-        $route->addRule('any', 'test/symfony/{name}', 'Test.symfony');
+        $route->addRule('test/symfony/{name}', 'Test.symfony', RouteMethod::ANY);
         $route->start();
         $this->expectOutputString($name);
     }
@@ -129,7 +130,7 @@ class RouteTest extends TestCase
         $route = new Route();
         $route->setNamespaceRoot('\\Controller\\');
         $route->setType(RouteType::SYMFONY);
-        $route->addRule('any', 'test/home', 'Home.Home.index');
+        $route->addRule('test/home', 'Home.Home.index', RouteMethod::ANY);
         $route->start();
         $this->expectOutputString('index');
     }

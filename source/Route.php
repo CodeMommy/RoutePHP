@@ -84,12 +84,13 @@ class Route implements RouteInterface
 
     /**
      * Add Rule
-     * @param string $method
      * @param string $rule
      * @param string $action
+     * @param string $method
      */
-    public function addRule($method = '', $rule = '', $action = '')
+    public function addRule($rule = '', $action = '', $method = RouteMethod::ANY)
     {
+        $method = empty($method) ? RouteMethod::ANY : $method;
         $method = strtolower($method);
         if (!isset($this->rule[$method])) {
             $this->rule[$method] = array();
@@ -105,7 +106,7 @@ class Route implements RouteInterface
     {
         $requestMethod = isset($_SERVER['REQUEST_METHOD']) ? strtolower($_SERVER['REQUEST_METHOD']) : '';
         $routeRuleCustom = isset($this->rule[$requestMethod]) ? $this->rule[$requestMethod] : array();
-        $routeRuleAny = isset($this->rule['any']) ? $this->rule['any'] : array();
+        $routeRuleAny = isset($this->rule[RouteMethod::ANY]) ? $this->rule[RouteMethod::ANY] : array();
         $routeRule = array_merge($routeRuleAny, $routeRuleCustom);
         return $routeRule;
     }
@@ -144,7 +145,7 @@ class Route implements RouteInterface
      */
     private function typeNormal()
     {
-        $route = isset($_REQUEST['a']) ? $_REQUEST['a'] : '';
+        $route = isset($_REQUEST['a']) ? $_REQUEST['a'] : 'Index.index';
         return $this->render($route);
     }
 
