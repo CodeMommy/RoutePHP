@@ -204,9 +204,9 @@ class Route implements RouteInterface
     public function start()
     {
         $routeType = $this->getType();
-        if ($routeType == 'symfony') {
+        if ($routeType == RouteType::SYMFONY) {
             $this->typeSymfony();
-        } else if ($routeType == 'map') {
+        } else if ($routeType == RouteType::MAP) {
             $this->typeMap();
         } else {
             $this->typePathInfo();
