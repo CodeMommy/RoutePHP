@@ -65,11 +65,12 @@ class Route implements RouteInterface
     /**
      * Set Type
      * @param string $type
+     * @return bool
      */
     public function setType($type = '')
     {
-        $type = empty($type) ? 'any' : $type;
-        $this->type = $type;
+        $this->type = empty($type) ? RouteType::NORMAL : $type;
+        return true;
     }
 
     /**
@@ -78,8 +79,7 @@ class Route implements RouteInterface
      */
     private function getType()
     {
-        $type = empty($this->type) ? RouteType::NORMAL : $this->type;
-        return $type;
+        return empty($this->type) ? RouteType::NORMAL : $this->type;
     }
 
     /**
@@ -87,15 +87,16 @@ class Route implements RouteInterface
      * @param string $rule
      * @param string $action
      * @param string $method
+     * @return bool
      */
     public function addRule($rule = '', $action = '', $method = RouteMethod::ANY)
     {
-        $method = empty($method) ? RouteMethod::ANY : $method;
-        $method = strtolower($method);
+        $method = empty($method) ? RouteMethod::ANY : strtolower($method);
         if (!isset($this->rule[$method])) {
             $this->rule[$method] = array();
         }
         $this->rule[$method][$rule] = $action;
+        return true;
     }
 
     /**
@@ -118,25 +119,25 @@ class Route implements RouteInterface
      */
     private function render($route = '')
     {
-        if ($route) {
-            $path = explode('.', $route);
-            $actionName = array_pop($path);
-            $controllerName = array_pop($path);
-            $namespace = implode('\\', $path);
-            if (!empty($namespace)) {
-                $namespace .= '\\';
-            }
-            $namespace = $this->namespaceRoot . $namespace . $controllerName;
-            $class = new $namespace();
-            $result = $class->$actionName();
-            $type = gettype($result);
-            $array = array('string', 'integer', 'double', 'boolean', 'array', 'object');
-            if (in_array($type, $array)) {
-                echo $result;
-            }
-            return true;
+        if (empty($route)) {
+            return false;
         }
-        return false;
+        $path = explode('.', $route);
+        $actionName = array_pop($path);
+        $controllerName = array_pop($path);
+        $namespace = implode('\\', $path);
+        if (!empty($namespace)) {
+            $namespace .= '\\';
+        }
+        $namespace = $this->namespaceRoot . $namespace . $controllerName;
+        $class = new $namespace();
+        $result = $class->$actionName();
+        $type = gettype($result);
+        $array = array('string', 'integer', 'double', 'boolean', 'array', 'object');
+        if (in_array($type, $array)) {
+            echo $result;
+        }
+        return true;
     }
 
     /**
@@ -145,7 +146,9 @@ class Route implements RouteInterface
      */
     private function typeNormal()
     {
-        $route = isset($_REQUEST['a']) ? $_REQUEST['a'] : 'Index.index';
+        $requestKey = 'a';
+        $defaultRoute = 'Index.index';
+        $route = isset($_REQUEST[$requestKey]) ? $_REQUEST[$requestKey] : $defaultRoute;
         return $this->render($route);
     }
 
@@ -229,7 +232,7 @@ class Route implements RouteInterface
 
     /**
      * Start
-     * @return bool|void
+     * @return bool
      */
     public function start()
     {
@@ -246,5 +249,6 @@ class Route implements RouteInterface
         if ($routeType == RouteType::SYMFONY) {
             $this->typeSymfony();
         }
+        return true;
     }
 }
