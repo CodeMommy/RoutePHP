@@ -6,6 +6,7 @@
 [![Unstable](https://poser.pugx.org/CodeMommy/RoutePHP/v/unstable)](https://packagist.org/packages/CodeMommy/RoutePHP)
 [![composer.lock Available](https://poser.pugx.org/CodeMommy/RoutePHP/composerlock)](https://packagist.org/packages/CodeMommy/RoutePHP)
 [![Build Status](https://travis-ci.org/CodeMommy/RoutePHP.svg?branch=master)](https://travis-ci.org/CodeMommy/RoutePHP)
+[![Coverage Status](https://coveralls.io/repos/github/CodeMommy/RoutePHP/badge.svg?branch=master)](https://coveralls.io/github/CodeMommy/RoutePHP?branch=master)
 
 > Route for MVC framework
 
