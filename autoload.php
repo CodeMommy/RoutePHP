@@ -6,7 +6,7 @@
  */
 
 $autoloaDirectory = array(
-    'source' => 'CodeMommy\\RoutePHP',
+    'class' => 'CodeMommy\\RoutePHP',
     'interface' => 'CodeMommy\\RoutePHP'
 );
 
