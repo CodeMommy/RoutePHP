@@ -7,18 +7,17 @@
 
 declare(strict_types=1);
 
-namespace Test;
+namespace CodeMommy\RoutePHP\Test;
 
-use PHPUnit\Framework\TestCase;
 use CodeMommy\RoutePHP\Route;
 use CodeMommy\RoutePHP\RouteType;
 use CodeMommy\RoutePHP\RouteMethod;
 
 /**
  * Class RouteTest
- * @package Test
+ * @package CodeMommy\RoutePHP\Test
  */
-class RouteTest extends TestCase
+class RouteTest extends BaseTest
 {
     /**
      * RouteTest constructor.
