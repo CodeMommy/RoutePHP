@@ -68,19 +68,19 @@
             "composer phpmd"
         ],
         "phpmd": [
-            "CodeMommy\\RoutePHP\\Script\\Clean::start",
+            "CodeMommy\\RoutePHP\\Script\\Clean::workbench",
             "CodeMommy\\RoutePHP\\Script\\RemoveRule::start",
             "\"vendor/bin/phpmd\" autoload.php,interface,class,script,test,test_case text cleancode,codesize,controversial,design,naming,unusedcode"
         ],
         "phpcs": [
-            "CodeMommy\\RoutePHP\\Script\\Clean::start",
+            "CodeMommy\\RoutePHP\\Script\\Clean::workbench",
             "\"vendor/bin/phpcs\" autoload.php interface class script test test_case --standard=PSR2"
         ],
         "phpcbf": [
-            "CodeMommy\\RoutePHP\\Script\\Clean::start",
+            "CodeMommy\\RoutePHP\\Script\\Clean::workbench",
             "\"vendor/bin/phpcbf\" autoload.php interface class script test test_case --standard=PSR2"
         ],
         "phpunit": "CodeMommy\\RoutePHP\\Script\\PHPUnit::start",
-        "clean": "CodeMommy\\RoutePHP\\Script\\Clean::start"
+        "clean": "CodeMommy\\RoutePHP\\Script\\Clean::all"
     }
 }
