@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace CodeMommy\RoutePHP\Test;
 
+use Exception;
 use CodeMommy\RoutePHP\Route;
 use CodeMommy\RoutePHP\RouteType;
 use CodeMommy\RoutePHP\RouteMethod;
@@ -29,6 +30,7 @@ class RouteTest extends BaseTest
 
     /**
      * Test Construct
+     * @throws Exception
      */
     public function testConstruct()
     {
@@ -38,6 +40,7 @@ class RouteTest extends BaseTest
 
     /**
      * Test Normal
+     * @throws Exception
      */
     public function testNormal()
     {
@@ -51,6 +54,7 @@ class RouteTest extends BaseTest
 
     /**
      * Test PathInfo
+     * @throws Exception
      */
     public function testPathInfo()
     {
@@ -65,6 +69,7 @@ class RouteTest extends BaseTest
 
     /**
      * Test Map
+     * @throws Exception
      */
     public function testMap()
     {
@@ -79,6 +84,7 @@ class RouteTest extends BaseTest
 
     /**
      * Test Map Empty
+     * @throws Exception
      */
     public function testMapEmpty()
     {
@@ -93,6 +99,7 @@ class RouteTest extends BaseTest
 
     /**
      * Test No Namespace Root
+     * @throws Exception
      */
     public function testNoNamespaceRoot()
     {
@@ -107,6 +114,7 @@ class RouteTest extends BaseTest
 
     /**
      * Test Symfony
+     * @throws Exception
      */
     public function testSymfony()
     {
@@ -122,6 +130,7 @@ class RouteTest extends BaseTest
 
     /**
      * Test Symfony Namespace
+     * @throws Exception
      */
     public function testSymfonyNamespace()
     {
