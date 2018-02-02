@@ -44,11 +44,11 @@
         "symfony/routing": "2.8.*"
     },
     "require-dev": {
-        "CodeMommy/TaskPHP": "*",
-        "phpunit/phpunit": "*",
+        "phpunit/phpunit": "<7.0.0",
         "phpmd/phpmd": "*",
         "squizlabs/php_codesniffer": "*",
-        "satooshi/php-coveralls": "*"
+        "satooshi/php-coveralls": "*",
+        "CodeMommy/TaskPHP": "*"
     },
     "scripts": {
         "environment": [
