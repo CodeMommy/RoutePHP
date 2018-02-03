@@ -32,8 +32,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "CodeMommy\\RoutePHP\\Test\\": "test",
-            "CodeMommy\\RoutePHP\\Script\\": "script",
+            "CodeMommy\\Test\\": "test",
+            "CodeMommy\\Script\\": "script",
             "Controller\\": "test_case/controller",
             "ControllerNoNamespaceRoot\\": "test_case"
         }
@@ -44,43 +44,16 @@
         "symfony/routing": "2.8.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "phpmd/phpmd": "*",
-        "squizlabs/php_codesniffer": "*",
-        "satooshi/php-coveralls": "*",
-        "CodeMommy/TaskPHP": "*"
+        "CodeMommy/DevelopPHP": "dev-master"
     },
     "scripts": {
-        "environment": [
-            "composer -V",
-            "php -v",
-            "php -m"
-        ],
-        "update-project": [
-            "git pull",
-            "composer self-update",
-            "composer update"
-        ],
-        "test": [
-            "composer phpunit",
-            "composer phpcbf",
-            "composer phpcs",
-            "composer phpmd"
-        ],
-        "phpmd": [
-            "CodeMommy\\RoutePHP\\Script\\Clean::workbench",
-            "CodeMommy\\RoutePHP\\Script\\RemoveRule::start",
-            "\"vendor/bin/phpmd\" autoload.php,interface,class,script,test,test_case text cleancode,codesize,controversial,design,naming,unusedcode"
-        ],
-        "phpcs": [
-            "CodeMommy\\RoutePHP\\Script\\Clean::workbench",
-            "\"vendor/bin/phpcs\" autoload.php interface class script test test_case --standard=PSR2"
-        ],
-        "phpcbf": [
-            "CodeMommy\\RoutePHP\\Script\\Clean::workbench",
-            "\"vendor/bin/phpcbf\" autoload.php interface class script test test_case --standard=PSR2"
-        ],
-        "phpunit": "CodeMommy\\RoutePHP\\Script\\PHPUnit::start",
-        "clean": "CodeMommy\\RoutePHP\\Script\\Clean::all"
+        "update-project": "CodeMommy\\DevelopPHP\\UpdateProject::start",
+        "environment": "CodeMommy\\DevelopPHP\\Environment::start",
+        "clean": "CodeMommy\\DevelopPHP\\Clean::all",
+        "phpunit": "CodeMommy\\DevelopPHP\\PHPUnit::start",
+        "phpcbf": "CodeMommy\\DevelopPHP\\PHPCodeBeautifierAndFixer::start",
+        "phpcs": "CodeMommy\\DevelopPHP\\PHPCodeSniffer::start",
+        "phpmd": "CodeMommy\\DevelopPHP\\PHPMessDetector::start",
+        "test": "CodeMommy\\DevelopPHP\\Test::start"
     }
 }
