@@ -26,8 +26,8 @@
         "psr-4": {
             "CodeMommy\\RoutePHP\\Library\\": "library",
             "CodeMommy\\RoutePHP\\": [
-                "class",
-                "interface"
+                "interface",
+                "class"
             ]
         }
     },

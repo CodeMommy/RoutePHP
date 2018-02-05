@@ -3,13 +3,12 @@
     <testsuites>
         <testsuite name="CodeMommy RoutePHP">
             <directory suffix="Test.php">./test</directory>
-            <exclude>./test_case</exclude>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./class</directory>
             <directory suffix=".php">./interface</directory>
+            <directory suffix=".php">./class</directory>
         </whitelist>
     </filter>
     <logging>

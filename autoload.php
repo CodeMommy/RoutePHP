@@ -11,8 +11,8 @@ use CodeMommy\RoutePHP\Library\Autoload;
 
 $autoloaDirectory = array(
     'library' => 'CodeMommy\\RoutePHP\\Library',
-    'class' => 'CodeMommy\\RoutePHP',
-    'interface' => 'CodeMommy\\RoutePHP'
+    'interface' => 'CodeMommy\\RoutePHP',
+    'class' => 'CodeMommy\\RoutePHP'
 );
 
 Autoload::directory($autoloaDirectory);
