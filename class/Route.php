@@ -54,11 +54,10 @@ class Route implements RouteInterface
     {
         $namespaceRoot = trim($namespaceRoot, '/\\');
         if (empty($namespaceRoot)) {
-            $namespaceRoot = '\\';
-        } else {
-            $namespaceRoot = sprintf('\\%s\\', $namespaceRoot);
+            $this->namespaceRoot = '\\';
+            return true;
         }
-        $this->namespaceRoot = $namespaceRoot;
+        $this->namespaceRoot = sprintf('\\%s\\', $namespaceRoot);
         return true;
     }
 
