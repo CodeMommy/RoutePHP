@@ -9,10 +9,10 @@ require_once('library/Autoload.php');
 
 use CodeMommy\RoutePHP\Library\Autoload;
 
-$autoloaDirectory = array(
+$autoloadDirectory = array(
     'library' => 'CodeMommy\\RoutePHP\\Library',
     'interface' => 'CodeMommy\\RoutePHP',
     'class' => 'CodeMommy\\RoutePHP'
 );
 
-Autoload::directory($autoloaDirectory);
+Autoload::directory($autoloadDirectory);
