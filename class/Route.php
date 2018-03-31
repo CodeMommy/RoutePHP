@@ -108,7 +108,13 @@ class Route implements RouteInterface
         $routeRuleCustom = isset($this->rule[$requestMethod]) ? $this->rule[$requestMethod] : array();
         $routeRuleAny = isset($this->rule[RouteMethod::ANY]) ? $this->rule[RouteMethod::ANY] : array();
         $routeRule = array_merge($routeRuleAny, $routeRuleCustom);
-        return $routeRule;
+        $routeRuleNew = array();
+        foreach ($routeRule as $key => $value) {
+            $key = rtrim($key, '/');
+            $routeRuleNew[$key] = $value;
+            $routeRuleNew[$key . '/'] = $value;
+        }
+        return $routeRuleNew;
     }
 
     /**
